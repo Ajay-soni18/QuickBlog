@@ -16,7 +16,7 @@ const Dashboard = () => {
 
   const fetchDashboard = async () => {
     try {
-      const { data } = await axios.get("/api/admin/dashboard");
+      const { data } = await axios.get("/admin/dashboard");
       data.success
         ? setDashboardData(data.dashboardData)
         : toast.error(data.message);

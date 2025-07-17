@@ -3,7 +3,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+// 🔥 Dynamic Base URL for Dev / Prod
+axios.defaults.baseURL =
+  import.meta.env.MODE === "development" ? "http://localhost:3000/api" : "/api";
 
 const AppContext = createContext();
 
@@ -16,7 +18,7 @@ export const AppProvider = ({ children }) => {
 
   const fetchBlogs = async () => {
     try {
-      const { data } = await axios.get("/api/blog/all");
+      const { data } = await axios.get("/blog/all"); // ✅ No need to write /api in path
       data.success ? setBlogs(data.blogs) : toast.error(data.message);
     } catch (error) {
       toast.error(error.message);
